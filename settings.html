@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="browser-192.png" type="image/png">
+
+    <link rel="manifest" href="browser-manifest.json">
+    <meta name="theme-color" content="#f3b407">
+    <link rel="apple-touch-icon" href="browser-192.png">
+
+    <title>Settings - Browser</title>
+
+    <meta name="color-scheme" content="light dark">
+
+    <script src="theme.js"></script>
+
+    <link rel="stylesheet" href="pages.css">
+
+    <style>
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0 0 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .settings-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+            padding-right: 16px;
+        }
+
+        .setting-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0 0 4px 0;
+        }
+
+        .setting-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .custom-dropdown {
+            position: static;
+            min-width: 180px;
+            width: 100%;
+        }
+
+        .dropdown-header {
+            padding: 12px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s, background 0.2s;
+            user-select: none;
+            width: 100%;
+            text-align: left;
+            min-height: 48px;
+        }
+
+        .dropdown-header:hover,
+        .custom-dropdown.open .dropdown-header {
+            border-color: var(--accent-color);
+        }
+
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            fill: #666;
+            transform: rotate(-90deg);
+        }
+
+        html.dark-mode .dropdown-arrow {
+            fill: #888;
+        }
+
+        .custom-dropdown::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0s 0.2s;
+        }
+
+        .custom-dropdown.open::before {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease, visibility 0s 0s;
+        }
+
+        .dropdown-options {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            width: 90%;
+            max-width: 320px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px var(--shadow-color);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.15s ease-out, transform 0.15s ease-out, visibility 0s 0.15s;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .custom-dropdown.open .dropdown-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+            transition: opacity 0.15s ease-out, transform 0.15s ease-out, visibility 0s 0s;
+        }
+
+        .dropdown-option {
+            padding: 14px 20px;
+            font-size: 16px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-option.selected {
+            font-weight: 600;
+        }
+
+        .dropdown-option.selected::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background-color: currentColor;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/cover no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/cover no-repeat;
+        }
+
+        .dropdown-option:hover,
+        .dropdown-option.selected {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        html.dark-mode .dropdown-option:hover,
+        html.dark-mode .dropdown-option.selected {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 600px) {
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .setting-info {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <header class="hero-card">
+            <div class="close-btn-wrapper">
+                <a href="index.html" class="close-btn" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </a>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Settings</h1>
+                <p class="hero-subtitle">Customize your browser experience</p>
+            </div>
+        </header>
+
+        <section class="content-card">
+            <h2 class="section-title">Appearance</h2>
+            <ul class="settings-list">
+                <li class="setting-item">
+                    <div class="setting-info">
+                        <p class="setting-label">App Theme</p>
+                        <p class="setting-description">Follow system or set manually</p>
+                    </div>
+                    <div class="setting-control">
+                        <div class="custom-dropdown" id="themeDropdown">
+                            <button type="button" class="dropdown-header" aria-haspopup="listbox"
+                                aria-expanded="false">
+                                <span class="dropdown-value">System Default</span>
+                                <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                    aria-hidden="true">
+                                    <path d="M6 9L1 4h10z" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-options" role="listbox" aria-label="App Theme">
+                                <div class="dropdown-option" role="option" tabindex="0" data-value="system">System Default</div>
+                                <div class="dropdown-option" role="option" tabindex="0" data-value="light">Light</div>
+                                <div class="dropdown-option" role="option" tabindex="0" data-value="dark">Dark</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        function closeAllDropdowns() {
+            document.querySelectorAll('.custom-dropdown.open').forEach((dropdown) => {
+                dropdown.classList.remove('open');
+                dropdown.querySelector('.dropdown-header').setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        function setupDropdown(dropdownId, onSelect) {
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return null;
+
+            const header = dropdown.querySelector('.dropdown-header');
+            const valueLabel = dropdown.querySelector('.dropdown-value');
+            const optionsContainer = dropdown.querySelector('.dropdown-options');
+            const options = Array.from(dropdown.querySelectorAll('.dropdown-option'));
+
+            function setValue(value) {
+                options.forEach((option) => {
+                    const isSelected = option.dataset.value === value;
+                    option.classList.toggle('selected', isSelected);
+                    option.setAttribute('aria-selected', String(isSelected));
+                    if (isSelected) valueLabel.textContent = option.textContent;
+                });
+            }
+
+            header.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const shouldOpen = !dropdown.classList.contains('open');
+                closeAllDropdowns();
+                if (shouldOpen) {
+                    dropdown.classList.add('open');
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            optionsContainer.addEventListener('click', (event) => event.stopPropagation());
+
+            options.forEach((option) => {
+                option.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    setValue(option.dataset.value);
+                    closeAllDropdowns();
+                    header.focus();
+                    if (onSelect) onSelect(option.dataset.value);
+                });
+
+                option.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        option.click();
+                    }
+                });
+            });
+
+            return { setValue };
+        }
+
+        const themeDropdown = setupDropdown('themeDropdown', setTheme);
+        themeDropdown.setValue(getStoredTheme());
+
+        document.addEventListener('click', closeAllDropdowns);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeAllDropdowns();
+        });
+
+        window.addEventListener('pageshow', () => themeDropdown.setValue(getStoredTheme()));
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === null || event.key === THEME_STORAGE_KEY) {
+                themeDropdown.setValue(getStoredTheme());
+            }
+        });
+    </script>
+</body>
+
+</html>
