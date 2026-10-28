@@ -1,0 +1,27 @@
+{
+    "id": "./",
+    "name": "Gree",
+    "short_name": "Gree",
+    "description": "A privacy-first, offline-capable search start page for mobile and desktop.",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "display_override": ["standalone", "fullscreen"],
+    "background_color": "#ffffff",
+    "theme_color": "#f3b407",
+    "categories": ["utilities", "productivity"],
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

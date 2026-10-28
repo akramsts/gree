@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="browser-192.png" width="96" height="96" alt="Browser logo">
+<img src="icon-192.png" width="96" height="96" alt="Gree logo">
 
-# Browser
+# Gree
 
 **Privacy-first start page. Fast search, clean UI, local history, and offline installability.**
 
@@ -34,7 +34,7 @@ No tracking · No ads · No analytics
 
 ## Overview
 
-Browser is a lightweight, installable start page built with plain HTML, CSS, and JavaScript. It delivers a distraction-free search experience, lets users choose a preferred search engine, and stores settings and history entirely in the browser.
+Gree is a lightweight, installable start page built with plain HTML, CSS, and JavaScript. It delivers a distraction-free search experience, lets users choose a preferred search engine, and stores settings and history entirely in the browser.
 
 This app is designed for speed, privacy, and simplicity.
 
@@ -72,7 +72,7 @@ This app is designed for speed, privacy, and simplicity.
 ## Project Structure
 
 ```
-browser/
+gree/
 ├── index.html            # Main search start page
 ├── settings.html         # Theme preferences
 ├── history.html          # Full search history with filtering and delete
@@ -84,10 +84,10 @@ browser/
 ├── engines.js            # Search engine list (name, URL, logo) - single source of truth
 ├── utils.js              # Shared helpers: storage, history, URL detection, HTML escaping
 ├── logos/                # Engine logos (SVG), one file per engine id in engines.js
-├── browser-sw.js         # Service worker (offline caching)
-├── browser-manifest.json # PWA manifest
-├── browser-192.png       # App icon (192x192)
-├── browser-512.png       # App icon (512x512)
+├── sw.js                 # Service worker (offline caching)
+├── manifest.json         # PWA manifest
+├── icon-192.png          # App icon (192x192)
+├── icon-512.png          # App icon (512x512)
 └── README.md
 ```
 
@@ -96,8 +96,8 @@ browser/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/akramsts/browser.git
-cd browser
+git clone https://github.com/akramsts/gree.git
+cd gree
 ```
 
 2. Run a local static server:
@@ -144,7 +144,7 @@ npx serve .
 - **Search / URL detection** — input is parsed as a URL when it matches URL-like patterns. Otherwise the app searches using the selected engine.
 - **Local history** — searches are saved in `localStorage` as entries with `id`, `query`, `time`, and `engine`. `utils.js` is the only place that reads and writes them.
 - **Theme system** — `theme.js` applies light, dark, or system theme and keeps it synced across tabs.
-- **Offline support** — `browser-sw.js` pre-caches core pages, styles, scripts, and icons so the app can load offline after first visit.
+- **Offline support** — `sw.js` pre-caches core pages, styles, scripts, and icons so the app can load offline after first visit.
 
 ## Deployment
 

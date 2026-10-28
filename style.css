@@ -392,11 +392,6 @@ body {
 
 .history-item:first-child {
     border-top: none;
-    padding-top: 14px;
-}
-
-.history-item:last-child {
-    padding-bottom: 14px;
 }
 
 .history-item:hover,

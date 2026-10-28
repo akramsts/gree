@@ -7,8 +7,6 @@
     --border-color: #eeeeee;
     --text-muted: #666666;
     --hover-bg: #f9f9f9;
-    --btn-bg: #f9f9f9;
-    --btn-hover: #f0f0f0;
     --danger-color: #ff4757;
 }
 
@@ -21,8 +19,6 @@ html.dark-mode {
     --border-color: #333333;
     --text-muted: #888888;
     --hover-bg: #2a2a2a;
-    --btn-bg: #2a2a2a;
-    --btn-hover: #333333;
 }
 
 html.theme-transition,
