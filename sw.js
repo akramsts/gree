@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gree-core-cache-v3';
+const CACHE_NAME = 'gree-core-cache-v1';
 const CORE_ASSETS = [
     './index.html',
     './about.html',
