@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gree-core-cache-v1';
+const CACHE_NAME = 'gree-core-cache-v3';
 const CORE_ASSETS = [
     './index.html',
     './about.html',
@@ -10,15 +10,16 @@ const CORE_ASSETS = [
     './theme.js',
     './engines.js',
     './utils.js',
-    './logos/duckduckgo.svg',
-    './logos/startpage.svg',
-    './logos/brave.svg',
-    './logos/ecosia.svg',
-    './logos/bing.svg',
-    './logos/yahoo.svg',
-    './logos/google.svg',
-    './icon-192.png',
-    './icon-512.png',
+    './se-logos/duckduckgo.svg',
+    './se-logos/startpage.svg',
+    './se-logos/brave.svg',
+    './se-logos/ecosia.svg',
+    './se-logos/bing.svg',
+    './se-logos/yahoo.svg',
+    './se-logos/google.svg',
+    './logo-192.png',
+    './logo-512.png',
+    './logo.svg',
     './manifest.json'
 ];
 

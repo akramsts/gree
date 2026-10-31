@@ -1,4 +1,4 @@
-const HISTORY_STORAGE_KEY = 'searchHistory';
+const HISTORY_STORAGE_KEY = 'gree:searchHistory';
 const MAX_HISTORY_ENTRIES = 500;
 
 const HTML_ESCAPES = {

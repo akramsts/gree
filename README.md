@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="icon-192.png" width="96" height="96" alt="Gree logo">
+<img src="logo-192.png" width="96" height="96" alt="Gree logo">
 
 # Gree
 
@@ -83,11 +83,12 @@ gree/
 ├── theme.js              # Theme detection and switching
 ├── engines.js            # Search engine list (name, URL, logo) - single source of truth
 ├── utils.js              # Shared helpers: storage, history, URL detection, HTML escaping
-├── logos/                # Engine logos (SVG), one file per engine id in engines.js
+├── se-logos/             # Search engine logos (SVG), one file per engine id in engines.js
 ├── sw.js                 # Service worker (offline caching)
 ├── manifest.json         # PWA manifest
-├── icon-192.png          # App icon (192x192)
-├── icon-512.png          # App icon (512x512)
+├── logo.svg              # App logo (vector)
+├── logo-192.png          # App logo (192x192)
+├── logo-512.png          # App logo (512x512)
 └── README.md
 ```
 

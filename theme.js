@@ -1,4 +1,4 @@
-const THEME_STORAGE_KEY = 'theme';
+const THEME_STORAGE_KEY = 'gree:theme';
 const THEME_TRANSITION_MS = 300;
 const darkSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
